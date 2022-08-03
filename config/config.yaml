@@ -1,0 +1,4 @@
+port:
+  17888
+scripts: 
+  pipe-detect: d:/scripts/hello.bat

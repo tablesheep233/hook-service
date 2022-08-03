@@ -1,0 +1,4 @@
+port:
+  17888
+scripts: 
+  pipe-detect: /home/deploy/install.sh
