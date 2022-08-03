@@ -23,6 +23,6 @@ chmod +x server
 port:
   17888         #使用端口
 scripts:        #脚本路径 k:v对 目前key是 git推送的repository name, value是脚本的绝对路径
-  pipe-detect: /home/deploy/install.sh
+  service-app: /home/deploy/install.sh
 ```
 
