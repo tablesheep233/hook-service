@@ -13,6 +13,7 @@ import (
 
 	"github.com/tablesheep233/hook-service/config"
 	"github.com/tablesheep233/hook-service/logger"
+	"github.com/tablesheep233/hook-service/logger/recorder"
 )
 
 var lock sync.Mutex
@@ -79,18 +80,19 @@ func hook(writer http.ResponseWriter, request *http.Request) {
 			}
 			logger.Info.Println("Start execute the shell, Process Pid:", command.Process.Pid)
 
+			recorder := recorder.NewRecorder(fmt.Sprintf("%s-%s-%d", releaseArg.Repo.Name, releaseArg.Release.Tag_name, time.Now().Unix()))
 			reader := bufio.NewReader(rc)
 			for {
 				s, err := reader.ReadString('\n')
 				if err != nil || io.EOF == err {
 					break
 				}
-				logger.Info.Print(s)
+				recorder.Print(s)
 			}
 
 			err = command.Wait()
 			if err != nil {
-				logger.Error.Println("execute script failed", err)
+				logger.Error.Println("execute script failed", err, "log file ", recorder.FileName)
 				responseError("execute script failed", writer)
 				return
 			}

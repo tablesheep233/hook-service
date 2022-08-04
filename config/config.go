@@ -9,12 +9,13 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-type DeployCmd struct {
-	Port    int               `default:"9797"`
-	Scripts map[string]string `yaml:"scripts"`
+type SerivceConfig struct {
+	Port        int               `default:"9797"`
+	Scripts     map[string]string `yaml:"scripts"`
+	ExecLogPath string            `yaml:"exec-path" default:"log/exec"`
 }
 
-var Config DeployCmd
+var Config SerivceConfig
 
 func init() {
 	file, err := os.Open("config.yaml")

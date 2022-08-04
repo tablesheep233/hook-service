@@ -13,7 +13,11 @@ var (
 )
 
 func init() {
-	f, err := os.OpenFile("hook.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err := os.MkdirAll("log", os.ModePerm); err != nil {
+		log.Fatalln("create log dir fail", err)
+	}
+
+	f, err := os.OpenFile("log/hook.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
 	if err != nil {
 		log.Fatalln("open log file err", err)
 	}
